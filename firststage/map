@@ -1,0 +1,141 @@
+/cpu_tb/
+    Daddress
+    Ddata
+    Iaddress
+    Idata
+    i_cpu_address
+    d_cpu_address
+    data_cpu
+    tb_add
+    tb_add
+    tb_data
+    Dce_n
+    Dwe_n
+    Doe_n
+    Ice_n
+    Iwe_n
+    Ioe_n
+    ck
+    rst
+    rstCPU
+    go_i
+    go_d
+    ce
+    rw
+    bw
+/cpu_tb/Data_mem/
+    data
+    tmp_address
+/cpu_tb/Instr_mem/
+    data
+    tmp_address
+/cpu_tb/cpu/
+    i_address
+    d_address
+    data
+    IR
+    NPC
+    RESULT
+    uins
+    inst_branch
+    salta
+    end_mul
+    end_div
+/cpu_tb/cpu/dp/
+    ck
+    rst
+    d_address
+    data
+    inst_branch_out
+    salta_out
+    end_mul
+    end_div
+    RESULT_OUT
+    uins
+    IR_IN
+    NPC_IN
+    result
+    R1
+    R2
+    R3
+    R1_in
+    R2_in
+    R3_in
+    RIN
+    sign_extend
+    op1
+    op2
+    outalu
+    RALU
+    MDR
+    mdr_int
+    HI
+    LO
+    quociente
+    resto
+    D_Hi
+    D_Lo
+    adD
+    adS
+    inst_branch
+    inst_R_sub
+    rst_mudiv
+    salta
+    produto
+/cpu_tb/cpu/dp/REGS/
+    ck
+    rst
+    ce
+    AdRP1
+    AdRP2
+    AdWP
+    DataWP
+    DataRP1
+    DataRP2
+    reg
+    wen
+/cpu_tb/cpu/dp/R1reg/
+    Q
+/cpu_tb/cpu/dp/R2reg/
+    Q
+/cpu_tb/cpu/dp/R3reg/
+    Q
+/cpu_tb/cpu/dp/DALU/
+    outalu
+    menorU
+    menorS
+/cpu_tb/cpu/dp/ALUreg/
+    Q
+/cpu_tb/cpu/dp/inst_mult/
+    Mcando
+    Mcador
+    EA
+    regP
+    regB
+    cont
+/cpu_tb/cpu/dp/inst_div/
+    dividendo
+    divisor
+    quociente
+    resto
+    EA
+    regP
+    regB
+    diferenca
+    cont
+/cpu_tb/cpu/dp/HIreg/
+    Q
+/cpu_tb/cpu/dp/LOreg/
+    Q
+/cpu_tb/cpu/dp/RMDR/
+    Q
+/cpu_tb/cpu/ct/
+    PS
+    NS
+    i
+    uins_int
+    dtpc
+    NPC
+    pc
+    incpc
+    R

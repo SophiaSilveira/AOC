@@ -1,0 +1,23 @@
+Text Segment
+4194304  0x24080001  addiu $8,$0,1         5        li $t0, 1           # Inicializa contador (t0) com 1
+4194308  0x24090005  addiu $9,$0,5         6        li $t1, 5           # Define o limite (t1 = 5)
+4194312  0x24020004  addiu $2,$0,4         10       li $v0, 4           # Código de syscall para imprimir string
+4194316  0x3c011001  lui $1,4097           11       la $a0, message     # Endereço da mensagem
+4194320  0x34240000  ori $4,$1,0                
+4194324  0x0000000c  syscall               12       syscall
+4194328  0x24020001  addiu $2,$0,1         15       li $v0, 1           # Código de syscall para imprimir inteiro
+4194332  0x00082021  addu $4,$0,$8         16       move $a0, $t0       # Move o valor do contador para $a0
+4194336  0x0000000c  syscall               17       syscall
+4194340  0x24020004  addiu $2,$0,4         20       li $v0, 4           # Código de syscall para imprimir string
+4194344  0x3c011001  lui $1,4097           21       la $a0, newline     # Endereço da nova linha
+4194348  0x3424000b  ori $4,$1,11               
+4194352  0x0000000c  syscall               22       syscall
+4194356  0x21080001  addi $8,$8,1          24       addi $t0, $t0, 1    # Incrementa o contador
+4194360  0x0128082a  slt $1,$9,$8          25       ble $t0, $t1, print_loop # Continua o loop enquanto t0 <= t1
+4194364  0x1020fff2  beq $1,$0,-14              
+4194368  0x2402000a  addiu $2,$0,10        28       li $v0, 10          # Código de syscall para encerrar
+4194372  0x0000000c  syscall               29       syscall
+
+Data Segment
+0x10010000    0x746e6f43 0x6f646e61 0x0a00203a 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
+0x10010020    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
