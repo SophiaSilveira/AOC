@@ -1,19 +1,4 @@
-Text Segment
-0x00400000  0x3c011001  lui $1,0x00001001     6            la      $t0, var1        # Carrega o endereço de var1 em $t0
-0x00400004  0x34280000  ori $8,$1,0x00000000       
-0x00400008  0x24090000  addiu $9,$0,0x000000007            li      $t1, 0      	  # Carrega o valor de var1 em $t1
-0x0040000c  0x3c011001  lui $1,0x00001001     8            la      $t2, var2        # Carrega o endereço de var2 em $t2
-0x00400010  0x342a0004  ori $10,$1,0x00000004      
-0x00400014  0x8d4b0000  lw $11,0x00000000($10)9            lw      $t3, 0($t2)      # Carrega o valor de var2 em $t3
-0x00400018  0x112b0002  beq $9,$11,0x00000002 13           beq     $t1, $t3, end    # Se var1 == var2, pula para o fim
-0x0040001c  0x25290001  addiu $9,$9,0x0000000114           addiu   $t1, $t1, 1      # Incrementa var1
-0x00400020  0x08100006  j 0x00400018          15           j       loop             # Volta para o início do loop
-0x00400024  0xad090000  sw $9,0x00000000($8)  19           sw      $t1, 0($t0)      # Salva o novo valor de var1
-0x00400028  0x2402000a  addiu $2,$0,0x0000000a20           li   $v0, 10      # Código de syscall para terminar o programa
-0x0040002c  0x0000000c  syscall               21           syscall           # Chama a syscall, finalizando a execução
-
-Data Segment
-0x10010000    0x00000005 0x00000005 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
+0x10010000    0x00000002 0x00000003 0x00000001 0x00000001 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010020    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010040    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010060    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 

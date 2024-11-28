@@ -1,20 +1,23 @@
 Text Segment
-0x00400000  0x3c011001  lui $1,0x00001001     6            la      $t0, var1        # Carrega o endereço de var1 em $t0
-0x00400004  0x34280000  ori $8,$1,0x00000000       
-0x00400008  0x24090000  addiu $9,$0,0x000000007            li      $t1, 0      	  # Carrega o valor de var1 em $t1
-0x0040000c  0x3c011001  lui $1,0x00001001     8            la      $t2, var2        # Carrega o endereço de var2 em $t2
-0x00400010  0x342a0004  ori $10,$1,0x00000004      
-0x00400014  0x8d4b0000  lw $11,0x00000000($10)9            lw      $t3, 0($t2)      # Carrega o valor de var2 em $t3
-0x00400018  0x112b0002  beq $9,$11,0x00000002 13           beq     $t1, $t3, end    # Se var1 == var2, pula para o fim
-0x0040001c  0x25290001  addiu $9,$9,0x0000000114           addiu   $t1, $t1, 1      # Incrementa var1
-0x00400020  0x08100006  j 0x00400018          15           j       loop             # Volta para o início do loop
-0x00400024  0xad090000  sw $9,0x00000000($8)  19           sw      $t1, 0($t0)      # Salva o novo valor de var1
-0x00400028  0x2402000a  addiu $2,$0,0x0000000a20           li   $v0, 10      # Código de syscall para terminar o programa
-0x0040002c  0x0000000c  syscall               21           syscall           # Chama a syscall, finalizando a execução
+0x00400000  0x24080000  addiu $8,$0,0x0000000010       li $t0, 0               # Índice (i = 0)
+0x00400004  0x3c011001  lui $1,0x00001001     11       la $t1, array           # Endereço base da matriz de entrada
+0x00400008  0x34290000  ori $9,$1,0x00000000       
+0x0040000c  0x3c011001  lui $1,0x00001001     12       la $t2, result          # Endereço base da matriz de saída
+0x00400010  0x342a0020  ori $10,$1,0x00000020      
+0x00400014  0x8d2b0000  lw $11,0x00000000($9) 16       lw $t3, 0($t1)          # Carrega array[i] para $t3 (leitura)
+0x00400018  0x216b0001  addi $11,$11,0x000000019       addi $t3, $t3, 1        # Incrementa o valor carregado
+0x0040001c  0xad4b0000  sw $11,0x00000000($10)22       sw $t3, 0($t2)          # Salva o resultado na posição correspondente (escrita)
+0x00400020  0x21080001  addi $8,$8,0x00000001 25       addi $t0, $t0, 1        # i++
+0x00400024  0x21290004  addi $9,$9,0x00000004 26       addi $t1, $t1, 4        # Próximo elemento no array de entrada
+0x00400028  0x214a0004  addi $10,$10,0x000000027       addi $t2, $t2, 4        # Próximo elemento no array de saída
+0x0040002c  0x240c0008  addiu $12,$0,0x000000030       li $t4, 8
+0x00400030  0x150cfff8  bne $8,$12,0xfffffff8 31       bne $t0, $t4, loop      # Repete até processar todos os elementos
+0x00400034  0x2402000a  addiu $2,$0,0x0000000a34       li $v0, 10              # Finaliza o programa
+0x00400038  0x0000000c  syscall               35       syscall
 
 Data Segment
-0x10010000    0x00000005 0x00000005 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
-0x10010020    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
+0x10010000    0x00000001 0x00000002 0x00000003 0x00000004 0x00000005 0x00000006 0x00000007 0x00000008 
+0x10010020    0x00000002 0x00000003 0x00000004 0x00000005 0x00000006 0x00000007 0x00000008 0x00000009 
 0x10010040    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010060    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010080    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
