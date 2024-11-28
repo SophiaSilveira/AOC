@@ -1,23 +1,17 @@
 Text Segment
-4194304  0x24080001  addiu $8,$0,1         5        li $t0, 1           # Inicializa contador (t0) com 1
-4194308  0x24090005  addiu $9,$0,5         6        li $t1, 5           # Define o limite (t1 = 5)
-4194312  0x24020004  addiu $2,$0,4         10       li $v0, 4           # Código de syscall para imprimir string
-4194316  0x3c011001  lui $1,4097           11       la $a0, message     # Endereço da mensagem
-4194320  0x34240000  ori $4,$1,0                
-4194324  0x0000000c  syscall               12       syscall
-4194328  0x24020001  addiu $2,$0,1         15       li $v0, 1           # Código de syscall para imprimir inteiro
-4194332  0x00082021  addu $4,$0,$8         16       move $a0, $t0       # Move o valor do contador para $a0
-4194336  0x0000000c  syscall               17       syscall
-4194340  0x24020004  addiu $2,$0,4         20       li $v0, 4           # Código de syscall para imprimir string
-4194344  0x3c011001  lui $1,4097           21       la $a0, newline     # Endereço da nova linha
-4194348  0x3424000b  ori $4,$1,11               
-4194352  0x0000000c  syscall               22       syscall
-4194356  0x21080001  addi $8,$8,1          24       addi $t0, $t0, 1    # Incrementa o contador
-4194360  0x0128082a  slt $1,$9,$8          25       ble $t0, $t1, print_loop # Continua o loop enquanto t0 <= t1
-4194364  0x1020fff2  beq $1,$0,-14              
-4194368  0x2402000a  addiu $2,$0,10        28       li $v0, 10          # Código de syscall para encerrar
-4194372  0x0000000c  syscall               29       syscall
+0x00400000  0x3c011001  lui $1,0x00001001     6            la      $t0, var1        # Carrega o endereço de var1 em $t0
+0x00400004  0x34280000  ori $8,$1,0x00000000       
+0x00400008  0x24090000  addiu $9,$0,0x000000007            li      $t1, 0      	  # Carrega o valor de var1 em $t1
+0x0040000c  0x3c011001  lui $1,0x00001001     8            la      $t2, var2        # Carrega o endereço de var2 em $t2
+0x00400010  0x342a0004  ori $10,$1,0x00000004      
+0x00400014  0x8d4b0000  lw $11,0x00000000($10)9            lw      $t3, 0($t2)      # Carrega o valor de var2 em $t3
+0x00400018  0x112b0002  beq $9,$11,0x00000002 13           beq     $t1, $t3, end    # Se var1 == var2, pula para o fim
+0x0040001c  0x25290001  addiu $9,$9,0x0000000114           addiu   $t1, $t1, 1      # Incrementa var1
+0x00400020  0x08100006  j 0x00400018          15           j       loop             # Volta para o início do loop
+0x00400024  0xad090000  sw $9,0x00000000($8)  19           sw      $t1, 0($t0)      # Salva o novo valor de var1
+0x00400028  0x2402000a  addiu $2,$0,0x0000000a20           li   $v0, 10      # Código de syscall para terminar o programa
+0x0040002c  0x0000000c  syscall               21           syscall           # Chama a syscall, finalizando a execução
 
 Data Segment
-0x10010000    0x746e6f43 0x6f646e61 0x0a00203a 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
+0x10010000    0x00000005 0x00000005 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 
 0x10010020    0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 0x00000000 

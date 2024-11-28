@@ -1,34 +1,25 @@
-.text
-.globl main
+.text                # Segmento de código
+.globl main          # Declaração de que 'main' é o ponto de entrada global
 
 main:
-    li $t0, 1           # Inicializa contador (t0) com 1
-    li $t1, 5           # Define o limite (t1 = 5)
+        # Carregar endereços e valores iniciais
+        la      $t0, var1        # Carrega o endereço de var1 em $t0
+        li      $t1, 0      	  # Carrega o valor de var1 em $t1
+        la      $t2, var2        # Carrega o endereço de var2 em $t2
+        lw      $t3, 0($t2)      # Carrega o valor de var2 em $t3
 
-print_loop:
-    # Imprime a mensagem "Contando: "
-    li $v0, 4           # Código de syscall para imprimir string
-    la $a0, message     # Endereço da mensagem
-    syscall
+loop:   
+        # Comparar var1 e var2
+        beq     $t1, $t3, end    # Se var1 == var2, pula para o fim
+        addiu   $t1, $t1, 1      # Incrementa var1
+        j       loop             # Volta para o início do loop
 
-    # Imprime o valor do contador
-    li $v0, 1           # Código de syscall para imprimir inteiro
-    move $a0, $t0       # Move o valor do contador para $a0
-    syscall
+end:
+        # Atualizar valor de var1 na memória
+        sw      $t1, 0($t0)      # Salva o novo valor de var1
+        li   $v0, 10      # Código de syscall para terminar o programa
+        syscall           # Chama a syscall, finalizando a execução
 
-    # Imprime uma nova linha
-    li $v0, 4           # Código de syscall para imprimir string
-    la $a0, newline     # Endereço da nova linha
-    syscall
-
-    addi $t0, $t0, 1    # Incrementa o contador
-    ble $t0, $t1, print_loop # Continua o loop enquanto t0 <= t1
-
-    # Finaliza o programa
-    li $v0, 10          # Código de syscall para encerrar
-    syscall
-    
-   .data
-    message: .asciiz "Contando: "   # Mensagem inicial
-    newline: .asciiz "\n"          # Quebra de linha
-
+.data                # Segmento de dados
+var1:   .word   0    # Inicializa a variável com 0
+var2:   .word   5    # Inicializa a variável com 5
