@@ -13,5 +13,5 @@ do wave.do
 set StdArithNoWarnings 1
 set StdVitalGlitchNoWarnings 1
 
-run 50 us
+run 100 ms
 

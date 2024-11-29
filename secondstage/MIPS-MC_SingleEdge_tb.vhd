@@ -202,7 +202,7 @@ architecture cpu_tb of cpu_tb is
 		   
     signal readInst: std_logic;
     
-    file ARQ : TEXT open READ_MODE is "./programs/prog1.txt";
+    file ARQ : TEXT open READ_MODE is "./programs/prog5.txt";
  
 begin
            
