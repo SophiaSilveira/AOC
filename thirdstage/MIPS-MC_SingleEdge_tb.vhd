@@ -42,7 +42,6 @@
 --		   ALU continnha um n�mero grande (>65533) na sua sa�da 
 --		   imediatamente antes de uma instru��o LW o SW.
 -------------------------------------------------------------------------
-
 library IEEE;
 use IEEE.Std_Logic_1164.all;
 use std.textio.all;
@@ -195,13 +194,14 @@ end CPU_tb;
 
 architecture cpu_tb of cpu_tb is
     
-    signal Dadress, Ddata, CDdata, Iadress, Idata, CIdata,
+    signal Dadress, Ddata, Iadress, Idata, CIdata, Cadress,
            i_cpu_address, d_cpu_address, data_cpu, tb_add, tb_data : wires32 := (others => '0' );
     
     signal Dce_n, Dwe_n, Doe_n, Ice_n, Iwe_n, Ioe_n, ck, rst, rstCPU, hold,
            go_i, go_d, ce, rw, bw: std_logic;
 
-		   
+	signal miss: std_logic;	   
+
     signal readInst: std_logic;
     
     file ARQ : TEXT open READ_MODE is "./programs/prog1.txt";
@@ -214,18 +214,18 @@ begin
                                             
     Instr_mem: entity work.RAM_mem 
                generic map( START_ADDRESS => x"00400000" )
-               port map (ce_n=>Ice_n, we_n=>Iwe_n, oe_n=>Ioe_n, bw=>'1', address=>Iadress, data=>Idata);
+               port map (ce_n=>Ice_n, we_n=>Iwe_n, oe_n=>Ioe_n, bw=>'1', address=>Cadress, data=>Idata);
 
-    Cache_l1 : entity work.cache_l1
+
+    Cache_Mem : entity work.cache_l1
                 port map (
                     ck => ck, 
                     rst => rst,
-                    Dadress => Dadress,
-                    Ddata => Ddata,
-                    Ddata_c => CDdata,
-                    Iadress => Iadress,
-                    Idata => Idata,   
-                    Idata_c => CIdata);
+                    adress => Iadress,
+                    data => Idata,
+                    adress_c => Cadress,    
+                    data_c => CIdata,
+                    miss_c => miss);
         
     process(rst, ck)
 		variable em_count: std_logic;
@@ -235,7 +235,9 @@ begin
 			hold <= '0';
 			em_count := '0';
         elsif ck'event and ck = '0' then
-            if readInst = '1' then
+            if  miss = '1' then
+                hold <= '1';
+            elsif readInst = '1' then
                 if em_count = '0' then
                     count := 0;
                     hold <= '1';
@@ -260,7 +262,7 @@ begin
     Dadress <= tb_add  when rstCPU='1' else d_cpu_address;
     Ddata   <= tb_data when rstCPU='1' else data_cpu when (ce='1' and rw='0') else (others=>'Z'); 
     
-    data_cpu <= CDdata when (ce='1' and rw='1') else (others=>'Z');
+    data_cpu <= Ddata when (ce='1' and rw='1') else (others=>'Z');
     
     -- sinais para adaptar a mem�ria de instru��es ao processador ---------------------------------------------
     

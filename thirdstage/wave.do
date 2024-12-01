@@ -8,11 +8,10 @@ add wave -noupdate -divider sinais
 add wave /cpu_tb/Dadress
 add wave /cpu_tb/Ddata
 add wave /cpu_tb/CDdata
-add wave /cache_l1/dhit
+add wave /cache_l1/hit
 add wave /cpu_tb/Iadress
 add wave /cpu_tb/Idata
 add wave /cpu_tb/CIdata
-add wave /cache_l1/ihit
 add wave /cpu_tb/i_cpu_address
 add wave /cpu_tb/d_cpu_address
 add wave /cpu_tb/data_cpu

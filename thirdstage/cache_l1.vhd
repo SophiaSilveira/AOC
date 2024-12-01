@@ -11,10 +11,9 @@ library work;
 entity cache_l1 is
     port(
         ck, rst : in std_logic;
-        Dadress, Ddata: in std_logic_vector(31 downto 0);   
-        Ddata_c: inout std_logic_vector(31 downto 0);
-        Iadress, Idata: in std_logic_vector(31 downto 0);   
-        Idata_c: inout std_logic_vector(31 downto 0)
+        adress, data: in std_logic_vector(31 downto 0);   
+        adress_c, data_c: inout std_logic_vector(31 downto 0);
+        miss_c : out std_logic
     );
 end cache_l1;
 
@@ -25,85 +24,65 @@ architecture cache_l1 of cache_l1 is
     -- Define a estrutura de uma linha da cache
     type cache_line is record
         valid : std_logic; -- Indica se o bloco armazenado é válido
-        tag   : std_logic_vector(25 downto 0); -- 26 bits de tag
+        tag   : std_logic_vector(23 downto 0); -- 26 bits de tag
         data  : word_array; -- Bloco com 8 palavras
     end record;
 
     -- Vetor que representa a cache (8 linhas)
     type cache_array is array (0 to 7) of cache_line;
     signal data_cache : cache_array := (others => (valid => '0', tag => (others => '0'), data => (others => (others => '0'))));
-    signal instr_cache : cache_array := (others => (valid => '0', tag => (others => '0'), data => (others => (others => '0'))));
 
     -- Sinais auxiliares para endereço de dados
-    signal tag_d, tag_i   : std_logic_vector(25 downto 0);
-    signal index_d, index_i : integer range 0 to 7;
-    signal offset_d, offset_i : integer range 0 to 7;
-	signal dhit, ihit : std_logic;
+    signal tag : std_logic_vector(23 downto 0);
+    signal index : std_logic_vector(2 downto 0);
+    signal offset : std_logic_vector(2 downto 0);
+	signal hit : std_logic;
+    signal offsetnew : std_logic_vector(2 downto 0);
+    signal count : std_logic_vector(3 downto 0);
 
 begin
     -- Divisão do endereço de dados
-    tag_d <= Dadress(31 downto 6);
-    index_d <= to_integer(unsigned(Dadress(5 downto 3)));
-    offset_d <= to_integer(unsigned(Dadress(2 downto 0)));
+    --- 000000000000000000000000 - 000 - 000 -00-
+    tag <= adress(31 downto 8);
+    index <= adress(7 downto 5);
+    offset <= adress(4 downto 2);
 
-    -- Divisão do endereço de instruções
-    tag_i <= Iadress(31 downto 6);
-    index_i <= to_integer(unsigned(Iadress(5 downto 3)));
-    offset_i <= to_integer(unsigned(Iadress(2 downto 0)));
-
-    -- Processo de cache de dados
+    -- Processo de cache
     process(ck, rst)
     begin
         if rst = '1' then
-            -- Reset da cache de dados
+            -- Reset da cache 
             data_cache <= (others => (valid => '0', tag => (others => '0'), data => (others => (others => '0'))));
-            Ddata_c <= (others => '0');
-			dhit <= '1';
+            data_c <= (others => '0');
+			hit <= '1';
+            offsetnew <= (others => '0');
         elsif rising_edge(ck) then
-            if data_cache(index_d).valid = '1' and data_cache(index_d).tag = tag_d then
+            if  count <= "0111" then -- checar se eu to preenchendo a matriz
+                hit <= '0';
+                count <= count + '1';
+                offsetnew <= offsetnew + '1';
+                data_cache(to_integer(unsigned(index))).data(to_integer(unsigned(offset))) <= data;
+                data_c <= (others => '0');
+            elsif data_cache(to_integer(unsigned(index))).valid = '1' and data_cache(to_integer(unsigned(index))).tag = tag then
                 -- HIT
-				dhit <= '1';
-                Ddata_c <= data_cache(index_d).data(offset_d);
+				hit <= '1';
+                data_c <= data_cache(to_integer(unsigned(index))).data(to_integer(unsigned(offset)));
             else
                 -- MISS
-				dhit <= '0';
-                data_cache(index_d).valid <= '1';
-                data_cache(index_d).tag <= tag_d;
+				hit <= '0';
+                data_cache(to_integer(unsigned(index))).valid <= '1';
+                data_cache(to_integer(unsigned(index))).tag <= tag;
                 -- Carregar bloco inteiro da memória principal
-                for i in 0 to 7 loop
-                    data_cache(index_d).data(i) <= Ddata; -- Simula carregamento da memória principal
-                end loop;
-                Ddata_c <= Ddata; -- Retorna a palavra acessada
+                count <= (others => '0');
+                offsetnew <= (others => '0');
+                data_c <= (others => '0'); -- Retorna a palavra acessada
             end if;
         end if;
     end process;
-
-    -- Processo de cache de instruções
-    process(ck, rst)
-    begin
-        if rst = '1' then
-            -- Reset da cache de instruções
-            instr_cache <= (others => (valid => '0', tag => (others => '0'), data => (others => (others => '0'))));
-            Idata_c <= (others => '0');
-			ihit <= '1';
-        elsif rising_edge(ck) then
-            if instr_cache(index_i).valid = '1' and instr_cache(index_i).tag = tag_i then
-				ihit <= '1';
-                -- HIT
-                Idata_c <= instr_cache(index_i).data(offset_i);
-            else
-                -- MISS
-				ihit <= '0';
-                instr_cache(index_i).valid <= '1';
-                instr_cache(index_i).tag <= tag_i;
-                -- Carregar bloco inteiro da memória principal
-                for i in 0 to 7 loop
-                    instr_cache(index_i).data(i) <= Idata; -- Simula carregamento da memória principal
-                end loop;
-                Idata_c <= Idata; -- Retorna a palavra acessada
-            end if;
-        end if;
-    end process;
-
+    adress_c (31 downto 8) <= tag;
+    adress_c (7 downto 5) <= index;
+    adress_c (4 downto 2) <= offsetnew;
+    adress_c (1 downto 0) <= "00";              
+    miss_c <= not hit;
 end cache_l1;
 

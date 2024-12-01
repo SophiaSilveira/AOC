@@ -24,9 +24,9 @@ VABHZboa[98F<74L9VjlSd2
 !s100 3DcE77C9S=h3MRXSRgXEi0
 Z9 OV;C;10.5b;63
 32
-Z10 !s110 1733069609
+Z10 !s110 1733083856
 !i10b 1
-Z11 !s108 1733069609.000000
+Z11 !s108 1733083856.000000
 Z12 !s90 -reportprogress|300|MIPS-MC_SingleEdge.vhd|
 Z13 !s107 MIPS-MC_SingleEdge.vhd|
 !i113 1
@@ -55,82 +55,82 @@ R14
 Paux_functions
 R5
 R6
-Z17 w1733069605
+Z17 w1733083627
 R0
 Z18 8MIPS-MC_SingleEdge_tb.vhd
 Z19 FMIPS-MC_SingleEdge_tb.vhd
 l0
-L49
-VU<=:bKEN[7Jc7^mWPm=OI0
-!s100 RhTAKh^TkBYPVYf^WmO:L0
+L48
+VJebcH69G`EKd]VDlAEOlQ2
+!s100 8NYX:@Zc`Y5QM1GlZ21=93
 R9
 32
 b1
-R10
+Z20 !s110 1733083857
 !i10b 1
-R11
-Z20 !s90 -reportprogress|300|MIPS-MC_SingleEdge_tb.vhd|
-Z21 !s107 MIPS-MC_SingleEdge_tb.vhd|
+Z21 !s108 1733083857.000000
+Z22 !s90 -reportprogress|300|MIPS-MC_SingleEdge_tb.vhd|
+Z23 !s107 MIPS-MC_SingleEdge_tb.vhd|
 !i113 1
 R14
 Bbody
-Z22 DPx4 work 13 aux_functions 0 22 U<=:bKEN[7Jc7^mWPm=OI0
+Z24 DPx4 work 13 aux_functions 0 22 JebcH69G`EKd]VDlAEOlQ2
 R5
 R6
 l0
-L68
-VKWB?00G:zV;@SeoTAmj931
-!s100 PXVzKU=9@85CaUAzaG;n?2
+L67
+V61C@f?F19oSne_N2jJMVS2
+!s100 o[]:^S9jmCnle9<D=O79V3
 R9
 32
-R10
-!i10b 1
-R11
 R20
+!i10b 1
 R21
+R22
+R23
 !i113 1
 R14
 Ecache_l1
-Z23 w1733068740
-Z24 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z25 w1733083842
+Z26 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 R3
 R4
 R5
 R6
 R0
-Z25 8cache_l1.vhd
-Z26 Fcache_l1.vhd
+Z27 8cache_l1.vhd
+Z28 Fcache_l1.vhd
 l0
 L11
-VFmo=PY;^cFS9I9LZgoWRZ2
-!s100 WGTcoO;jPNHDX4e=iVCTI2
+VoUONCMD<iB4FRiSZHQ_^T0
+!s100 GOX6VMa70FjMiL8^0PC@A0
 R9
 32
-R10
+R20
 !i10b 1
-R11
-Z27 !s90 -reportprogress|300|cache_l1.vhd|
-Z28 !s107 cache_l1.vhd|
+R21
+Z29 !s90 -reportprogress|300|cache_l1.vhd|
+Z30 !s107 cache_l1.vhd|
 !i113 1
 R14
 Acache_l1
-R24
+R26
 R3
 R4
 R5
 R6
-Z29 DEx4 work 8 cache_l1 0 22 Fmo=PY;^cFS9I9LZgoWRZ2
+Z31 DEx4 work 8 cache_l1 0 22 oUONCMD<iB4FRiSZHQ_^T0
 l43
-L21
-V1@>9zKV63oV4=B1W6W]I>3
-!s100 1nS9`G]W[lJ9W:]o00K9Q2
+L20
+VNma<b<_6289hbGR]48j`52
+!s100 P`l<UgP^kzCIRDK8B_=dh1
 R9
 32
-R10
+R20
 !i10b 1
-R11
-R27
-R28
+R21
+R29
+R30
 !i113 1
 R14
 Econtrol_unit
@@ -157,20 +157,20 @@ R13
 !i113 1
 R14
 Acontrol_unit
-Z30 DEx4 work 8 reg32bit 0 22 6ck8d`X`0CMkA_>]aT>2;0
+Z32 DEx4 work 8 reg32bit 0 22 6ck8d`X`0CMkA_>]aT>2;0
 R2
 R3
 R4
 R5
 R6
-Z31 DEx4 work 12 control_unit 0 22 6e5RoWjL;NCodRQcilX]>0
+Z33 DEx4 work 12 control_unit 0 22 6e5RoWjL;NCodRQcilX]>0
 l457
 L451
 VELFVne=X5kA1hbFZhY1053
 !s100 _XZYKFO>;LEj1Jo[3el@A0
 R9
 32
-R10
+R20
 !i10b 1
 R11
 R12
@@ -179,7 +179,7 @@ R13
 R14
 Ecpu_tb
 R17
-R22
+R24
 R3
 R4
 R5
@@ -188,41 +188,41 @@ R0
 R18
 R19
 l0
-L193
-V:ISh]4BcP12CW6=z5E7XC1
-!s100 Y>:9j6GiJ^`MU6Ze1V@N[3
+L192
+Vm3^OEzD^2GEMU9C:U7jfd2
+!s100 d3ho]OTl=VZHh6m^V5>]F3
 R9
 32
-Z32 !s110 1733069610
-!i10b 1
-R11
 R20
+!i10b 1
 R21
+R22
+R23
 !i113 1
 R14
 Acpu_tb
 R2
-Z33 DEx4 work 6 mips_s 0 22 @_oQ27`:^?LJK<D9:56n]1
+Z34 DEx4 work 6 mips_s 0 22 @_oQ27`:^?LJK<D9:56n]1
+R26
+R31
+Z35 DEx4 work 7 ram_mem 0 22 oMB1<3nAPj87@Enl3LCf11
 R24
-R29
-Z34 DEx4 work 7 ram_mem 0 22 hQ_QAFjB?`3Q3MJoj8B_c3
-R22
 R3
 R4
 R5
 R6
-DEx4 work 6 cpu_tb 0 22 :ISh]4BcP12CW6=z5E7XC1
+DEx4 work 6 cpu_tb 0 22 m3^OEzD^2GEMU9C:U7jfd2
 l209
-L196
-VljYL:PIG>1A[o62_5a4SQ0
-!s100 B6OPiA?o0F1<d3;BYWf9?3
+L195
+Vzi5gaH99=9TI4UcBbHDz:2
+!s100 4omklE:gLAZHL9>9e0?EO3
 R9
 32
-R32
-!i10b 1
-R11
 R20
+!i10b 1
 R21
+R22
+R23
 !i113 1
 R14
 Edatapath
@@ -249,18 +249,18 @@ R13
 !i113 1
 R14
 Adatapath
-Z35 DEx4 work 6 divide 0 22 3;ZZ6a^C<ic@DTZz4P4hX0
-Z36 DEx4 work 10 multiplica 0 22 7RaACzn;R]mO<dnm=S0Di0
+Z36 DEx4 work 6 divide 0 22 3;ZZ6a^C<ic@DTZz4P4hX0
+Z37 DEx4 work 10 multiplica 0 22 7RaACzn;R]mO<dnm=S0Di0
 R16
-R30
+R32
 R4
-Z37 DEx4 work 8 reg_bank 0 22 0gNYzCP@o[UQXd^Vga15k0
+Z38 DEx4 work 8 reg_bank 0 22 0gNYzCP@o[UQXd^Vga15k0
 R2
 R3
 R15
 R5
 R6
-Z38 DEx4 work 8 datapath 0 22 7g?TT:RN=cd0ig<nCRiUk2
+Z39 DEx4 work 8 datapath 0 22 7g?TT:RN=cd0ig<nCRiUk2
 l283
 L275
 V7^5E?5`e]]7cacGziM90O1
@@ -275,14 +275,14 @@ R13
 !i113 1
 R14
 Edivide
-Z39 w1732821896
+Z40 w1732821896
 R3
 R4
 R5
 R6
 R0
-Z40 8mult_div.vhd
-Z41 Fmult_div.vhd
+Z41 8mult_div.vhd
+Z42 Fmult_div.vhd
 l0
 L119
 V3;ZZ6a^C<ic@DTZz4P4hX0
@@ -292,8 +292,8 @@ R9
 R10
 !i10b 1
 R11
-Z42 !s90 -reportprogress|300|mult_div.vhd|
-Z43 !s107 mult_div.vhd|
+Z43 !s90 -reportprogress|300|mult_div.vhd|
+Z44 !s107 mult_div.vhd|
 !i113 1
 R14
 Adivide
@@ -301,7 +301,7 @@ R3
 R4
 R5
 R6
-R35
+R36
 l138
 L129
 VELbjYRdTL@VmHU:A=KeTa1
@@ -311,8 +311,8 @@ R9
 R10
 !i10b 1
 R11
-R42
 R43
+R44
 !i113 1
 R14
 Emips_s
@@ -329,7 +329,7 @@ V@_oQ27`:^?LJK<D9:56n]1
 !s100 H^ViY0]NTT;A3`N4[_GbS2
 R9
 32
-R10
+R20
 !i10b 1
 R11
 R12
@@ -338,21 +338,21 @@ R13
 R14
 Amips_s
 R4
-R31
+R33
 R3
 R15
-R38
+R39
 R2
 R5
 R6
-R33
+R34
 l669
 L665
 VRh3fV9T]e]=Km>AZP5:Ah0
 !s100 VENPAniM2_Z7kmH3VEMOj2
 R9
 32
-R10
+R20
 !i10b 1
 R11
 R12
@@ -360,14 +360,14 @@ R13
 !i113 1
 R14
 Emultiplica
-R39
+R40
 R3
 R4
 R5
 R6
 R0
-R40
 R41
+R42
 l0
 L31
 V7RaACzn;R]mO<dnm=S0Di0
@@ -377,8 +377,8 @@ R9
 R10
 !i10b 1
 R11
-R42
 R43
+R44
 !i113 1
 R14
 Amultiplica
@@ -386,7 +386,7 @@ R3
 R4
 R5
 R6
-R36
+R37
 l49
 L40
 VfH6S[dLz0XLN>FF?9H0na0
@@ -396,8 +396,8 @@ R9
 R10
 !i10b 1
 R11
-R42
 R43
+R44
 !i113 1
 R14
 Pp_mips_s
@@ -422,7 +422,7 @@ R13
 R14
 Eram_mem
 R17
-R22
+R24
 R3
 R4
 R5
@@ -431,36 +431,36 @@ R0
 R18
 R19
 l0
-L135
-VhQ_QAFjB?`3Q3MJoj8B_c3
-!s100 nRa9OJ[e=E2icH_P@G_Om1
+L134
+VoMB1<3nAPj87@Enl3LCf11
+!s100 7:UER[5kn0Ec[L4291j=A3
 R9
 32
-R10
-!i10b 1
-R11
 R20
+!i10b 1
 R21
+R22
+R23
 !i113 1
 R14
 Aram_mem
-R22
+R24
 R3
 R4
 R5
 R6
-R34
-l145
-L141
-VeC4dW=]k<aBLlLDO6L]XC3
-!s100 e@fS0l5c=dcb^hVbQ4UCB3
+R35
+l144
+L140
+VOdl;c9SN]k5;9QFbG]_3Q0
+!s100 W9PWRgYRM]QPj;7=3aPn=0
 R9
 32
-R10
-!i10b 1
-R11
 R20
+!i10b 1
 R21
+R22
+R23
 !i113 1
 R14
 Ereg32bit
@@ -486,7 +486,7 @@ R14
 Areg32bit
 R5
 R6
-R30
+R32
 l115
 L114
 VGgO>jl9@i;QK=L`TF29N63
@@ -524,13 +524,13 @@ R13
 !i113 1
 R14
 Areg_bank
-R30
+R32
 R2
 R3
 R4
 R5
 R6
-R37
+R38
 l158
 L154
 VEIizlfaMb>BP>]DP0`lkk3
