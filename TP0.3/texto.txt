@@ -1,0 +1,115 @@
+000000000000000000000000 000 000 00
+0		0		0		0		0		0		f		3 
+0000	0000	0000	0000	0000	0000	1111	0011
+00000000000000000000000011110011	
+00000000000000000000000000000000
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+DATA
+isso é o que é salvo
+0x3c0800f3  lui $8 ,0x000000f3
+lui		$8 ,	0x000000f3
+3c		08			  00f3 
+
+ADDRESS
+isso é o endereço da data dentro da cache
+0x00400000
+0		0		4		0		0		0		0		0
+0000	0000	0100	0000	0000	0000	0000	0000
+
+1 pega o endereço
+adiciona os endereços que vão referenciar o dado
+*exemplo
+recebe:
+0x00400000
+pega:
+0x00400000
+0x00400004
+0x00400008
+0x0040000c
+0x00400010
+0x00400014
+0x00400018
+0x0040001c
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+BLOCO:
+<0> começa zerado
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+<1> pega primeira instrução
+|1|004000|00|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+<2> salva os próximos endereços
+|1|004000|00|04|08|0c|10|14|18|1c|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+|x|xxxxxx|xx|xx|xx|xx|xx|xx|xx|xx|
+<3>
+...
+<4> preencheu toda a cache (como o programa  não tem pulos, então a cache é preenchida  na ordem)
+|1|004000|00|04|08|0c|10|14|18|1c|
+|1|004000|20|24|28|2c|30|34|38|3c|
+|1|004000|40|44|48|4c|50|54|58|5c|
+|1|004000|60|64|68|6c|70|74|78|7c|
+|1|004000|80|84|88|8c|90|94|98|9c|
+|1|004000|a0|a4|a8|ac|b0|b4|b8|bc|
+|1|004000|c0|c4|c8|cc|d0|d4|d8|dc|
+|1|004000|e0|e4|e8|ec|f0|f4|f8|fc|
+
+<5>
+|1|004001|00|04|08|0c|10|14|18|1c|
+|1|004001|20|24|28|2c|30|34|38|3c|
+|1|004001|40|44|48|4c|50|54|58|5c| (ultima instrução é 00400154)
+|1|004000|60|64|68|6c|70|74|78|7c|
+|1|004000|80|84|88|8c|90|94|98|9c|
+|1|004000|a0|a4|a8|ac|b0|b4|b8|bc|
+|1|004000|c0|c4|c8|cc|d0|d4|d8|dc|
+|1|004000|e0|e4|e8|ec|f0|f4|f8|fc|
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+|00|04|08|0c|10|14|18|1c|
+|20|24|28|2c|30|34|38|3c|
+|40|44|48|4c|50|54|58|5c|
+|60|64|68|6c|70|74|78|7c|
+|80|84|88|8c|90|94|98|9c|
+|a0|a4|a8|ac|b0|b4|b8|bc|
+|c0|c4|c8|cc|d0|d4|d8|dc|
+|e0|e4|e8|ec|f0|f4|f8|fc|
+
+|00|04|08|12|16|20|24|28| - 0
+|32|36|40|44|48|52|56|60| - 1
+|64|68|72|76|80|84|88|92| - 2
+|96|100|104|108|112|116|120|124| - 3
+|128|132|136|140|144|148|152|156| - 4
+||||||||| - 5
+||||||||| - 6
+||||||||252| - 7
+
+entre 0000 0000 e 0001 1100 -> linha 0
+entre 0010 0000 e 0011 1100 -> linha 1
+entre 0100 0000 e 0101 1100 -> linha 2
+entre 0110 0000 e 0111 1100 -> linha 3
+entre 1000 0000 e 1001 1100 -> linha 4
+entre 1010 0000 e 1011 1100 -> linha 5
+entre 1100 0000 e 1101 1100 -> linha 6
+entre 1110 0000 e 1111 1100 -> linha 7

@@ -134,8 +134,7 @@ use work.aux_functions.all;
 
 entity RAM_mem is
       generic(  START_ADDRESS: wires32 := (others=>'0')  );
-      port( ce_n, we_n, oe_n, bw: in std_logic;    
-      address: in wires32;   data: inout wires32);
+      port( ce_n, we_n, oe_n, bw: in std_logic;    address: in wires32;   data: inout wires32);
 end RAM_mem;
 
 architecture RAM_mem of RAM_mem is 
@@ -195,16 +194,15 @@ end CPU_tb;
 
 architecture cpu_tb of cpu_tb is
     
-    signal Dadress, Ddata, CDdata, Iadress, Idata, CIdata,
+    signal Dadress, Ddata, Iadress, Idata,
            i_cpu_address, d_cpu_address, data_cpu, tb_add, tb_data : wires32 := (others => '0' );
     
     signal Dce_n, Dwe_n, Doe_n, Ice_n, Iwe_n, Ioe_n, ck, rst, rstCPU, hold,
            go_i, go_d, ce, rw, bw: std_logic;
-
 		   
     signal readInst: std_logic;
     
-    file ARQ : TEXT open READ_MODE is "./programs/prog1.txt";
+    file ARQ : TEXT open READ_MODE is "Test_Program_Allinst_MIPS_MCS.txt";
  
 begin
            
@@ -215,17 +213,6 @@ begin
     Instr_mem: entity work.RAM_mem 
                generic map( START_ADDRESS => x"00400000" )
                port map (ce_n=>Ice_n, we_n=>Iwe_n, oe_n=>Ioe_n, bw=>'1', address=>Iadress, data=>Idata);
-
-    Cache_l1 : entity work.cache_l1
-                port map (
-                    ck => ck, 
-                    rst => rst,
-                    Dadress => Dadress,
-                    Ddata => Ddata,
-                    Ddata_c => CDdata,
-                    Iadress => Iadress,
-                    Idata => Idata,   
-                    Idata_c => CIdata);
         
     process(rst, ck)
 		variable em_count: std_logic;
@@ -260,7 +247,7 @@ begin
     Dadress <= tb_add  when rstCPU='1' else d_cpu_address;
     Ddata   <= tb_data when rstCPU='1' else data_cpu when (ce='1' and rw='0') else (others=>'Z'); 
     
-    data_cpu <= CDdata when (ce='1' and rw='1') else (others=>'Z');
+    data_cpu <= Ddata when (ce='1' and rw='1') else (others=>'Z');
     
     -- sinais para adaptar a mem�ria de instru��es ao processador ---------------------------------------------
     
@@ -276,7 +263,7 @@ begin
 	(
 		clock=>ck, reset=>rstCPU, hold=>hold,
 		i_address => i_cpu_address,
-		instruction => CIdata,
+		instruction => Idata,
 		ce=>ce, rw=>rw, bw=>bw,
 		readInst => readInst,
 		d_address => d_cpu_address,

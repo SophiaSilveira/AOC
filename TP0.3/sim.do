@@ -4,9 +4,7 @@ vmap work work
 
 vcom mult_div.vhd
 vcom MIPS-MC_SingleEdge.vhd
-vcom cache_l1.vhd
 vcom MIPS-MC_SingleEdge_tb.vhd
-
 
 vsim -voptargs=+acc=lprn -t ps work.CPU_tb
 
