@@ -207,7 +207,7 @@ architecture cpu_tb of cpu_tb is
     signal free : std_logic;
     
 --    file ARQ : TEXT open READ_MODE is "./programs/prog1.txt";
-    file ARQ : TEXT open READ_MODE is "./programs/prog5.txt";
+    file ARQ : TEXT open READ_MODE is "./programs/prog6.txt";
  
 begin
            

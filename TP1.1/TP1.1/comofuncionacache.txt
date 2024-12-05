@@ -1,0 +1,80 @@
+a cache funciona com mapeamento direto, ela tem de entrada no geral o clock e o reset.
+de comunicação com o processador tem os sinais:
+*addressCPU (in)
+    -endereço da instrução que o processador está pedindo para a cache
+*instCPU (out)
+    -a instrução que a cache manda para o processador
+*miss_c (out)
+    -sinal de miss para o processador esperar, ficar em hold
+*status (in)
+    -sinal do processador para sinalizar que ele ja processou as intruções da memória de data e vai começar a pedir instruções para a cache
+
+de comunicação com a memória de instruções tem os sinais:
+*addressMem (out)
+    -instrução recebida pela cache de endereço que é mandada para memória de instruções para pedir a instrução no endereço recebido
+*instMem (in)
+    -a instrução no endereço
+
+a cache em si é:
+*data_cache
+    -é o vetor de vetores que vamos ter as informações da cache,tem um valor para cada vetor que é a linha, e temos o bit de validade, a tag, os blocos e as instruções de 32bits
+*tag
+    -os 24 bits mais significativos dos endereços recebidos
+*linha
+    -os bits 7, 6 e 5 do endereço para saber a linha
+*bloco
+    -os bits 4, 3 e 2 para saber qual bloco
+*hit
+    -sinal usado pela maquina de estados para saber se a informação foi encontrada e pode ser mandada
+*miss
+    -sinal usado pela maquina de estados para preencher a linha da cache e mandar um sinal para o processador para ele entrar em hold
+*count
+    -contador para preencher a cache
+*addressOut
+    -sinal para pedir endereço para memória, foi criado um sinal para não poder controlar quando um endereço mandado é valido ou não
+*cs
+    -estado atual da maquina de estados
+*ns
+    -próximo estado da maquina de estados
+*count1
+    -contador com um valor a menos que o contador, serve para arrumar um bug
+
+os estados da maquina de estados são:
+*waiting
+    -estado de espera
+*search
+    -estado de procura
+*send
+    -estado que manda a instrução para o processador
+*fill
+    -estado que preenche a linha da cache
+
+como mudam:
+*waiting->search 
+    -quando hit, miss e status é zero
+*waiting->waiting
+    -quando nenhum deles
+*waiting->waiting
+    -qualquer outro caso
+*search->send
+    -caso hit seja 1
+*search->fill
+    -caso miss seja 1
+*search->search
+    -caso nem miss e nem hit virem 1
+*send->waiting
+    -única opção
+*fill->search
+    -caso miss seja 0
+*fill->fill
+    -caso miss não seja 0
+
+o que acontece em cada estado:
+*waiting
+  -seta miss, hit e count em 0
+*search
+  -checa se o endereço recebido está na cache, checa primeiro a linha, então o bit de validade, então a tag, então o bloco, se estiver hit recebe 1, se qualquer um desses testes falhar,  miss recebe 1
+*send
+  -envia a instrução para o processador
+*fill
+  -se o endereço for válido, manda o endereço recebido exceto o bloco, manda o contador no lugar do bloco para encher a linha, quando preencher o último lugar na linha o miss recebe 0
